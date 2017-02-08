@@ -9,6 +9,7 @@ http.createServer(function(req, res){
 		form.parse(req, function(err, fields, files){
 			res.writeHead(200, {'content-type': 'text/plain'});
 			res.write('received upload:\n\n');
+			console.log(files.upload.path);
 			res.end(util.inspect({fields: fields, file: files}));  //以字符串形式返回object对象的结构信息,方便调试
 		});
 		return;

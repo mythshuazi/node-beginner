@@ -9,21 +9,16 @@ var url  = require('url');
 function start(route, handle){
 	function onRequest(request, response){
 		var pathname = url.parse(request.url).pathname;  //域名端口 + pathname + 查询字符串
-		var postData = "";  //请求数据
 
 		if(pathname == '/favicon.ico') return;
 		console.log('Request for ===>'+ pathname +' received.');
-		
-		request.setEncoding("utf8"); //将 request body 字符编码设置为"utf8"
-		
-		request.addListener("data", function(postDataChunk){  //接收请求的数据
-			postData += postDataChunk;
-			console.log(`Revieved POST data chunk '${postDataChunk}'.`)
-		});
 
-		request.addListener("end", function(){
-			route(handle, pathname, response, postData); //根据请求的不同，有不同的响应，所以传递"response"到“路由总控”中
-		})		
+		/*
+		移除对postData的处理以及 request.setEncoding 
+		（这部分node-formidable自身会处理），
+		转而采用将request对象传递给请求路由的方式
+		 */
+		route(handle, pathname, response, request); //根据请求的不同，有不同的响应，所以传递"response"到“路由总控”中
 	}
 
 	http.createServer(onRequest).listen(8888);

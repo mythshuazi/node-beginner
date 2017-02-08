@@ -1,0 +1,23 @@
+{
+  "name": "node-beginner",
+  "version": "1.0.0",
+  "description": "Node入门 电子书学习笔记+demo\r [电子书地址](http://www.nodebeginner.org/index-zh-cn.html)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mythshuazi/node-beginner.git"
+  },
+  "author": "mythshuazi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mythshuazi/node-beginner/issues"
+  },
+  "homepage": "https://github.com/mythshuazi/node-beginner#readme",
+  "dependencies": {
+    "formidable": "^1.1.1"
+  }
+}
