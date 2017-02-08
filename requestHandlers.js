@@ -2,6 +2,7 @@
 //所有输出经过缓冲后在同一个回调函数中返回。
 var exec = require("child_process").exec;
 var querystring = require("querystring");
+var fs = require("fs");
 
 //根据不同的请求地址，运行不同的函数
 function start(response){
@@ -24,9 +25,9 @@ function start(response){
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		</head>
 		<body>
-			<form action="/upload" method="post">
-			<textarea name="text" rows="20" cols="60"></textarea>
-			<input type="submit" value="Submit text" />
+			<form action="/upload" enctypr="multipart/form-data" method="post">
+				<textarea name="text" rows="20" cols="60"></textarea>
+				<input type="submit" value="Submit text" />
 			</form>
 		</body>
 	</html>	`
@@ -43,5 +44,32 @@ function upload(response, postData) {
 	response.end();
 }
 
+function show(response, postData){
+	console.log("Request handler 'show' was called.");
+	fs.readFile('./tmp/test.jpg', "binary", (err, data) => {
+		if(error){
+			response.writeHead(500, {"content-type":"text/plain"});
+			response.write(error + "\n");
+			response.end();
+		} else {
+			response.writeHead(200, {"content-type":"image/jpg"});
+			response.write(file, "binary");
+			response.end();
+		}
+	})
+	/*fs.readFile("./tmp/test.jpg", "binary", function(error,file){
+		if(error){
+			response.writeHead(500, {"content-type":"text/plain"});
+			response.write(error + "\n");
+			response.end();
+		} else {
+			response.writeHead(200, {"content-type":"image/jpg"});
+			response.write(file, "binary");
+			response.end();
+		}
+	})*/
+}
+
 exports.start  = start;
 exports.upload = upload;
+exports.show = show;
