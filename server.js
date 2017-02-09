@@ -18,7 +18,7 @@ function start(route, handle){
 		（这部分node-formidable自身会处理），
 		转而采用将request对象传递给请求路由的方式
 		 */
-		route(handle, pathname, response, request); //根据请求的不同，有不同的响应，所以传递"response"到“路由总控”中
+		route(handle, pathname, request, response); //根据请求的不同，有不同的响应，所以传递"response"到“路由总控”中
 	}
 
 	http.createServer(onRequest).listen(8888);
